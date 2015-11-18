@@ -28,7 +28,7 @@ project.cljを変数してプロジェクトを設定します。プロジェク
 
 必要なライブラリを見つけたらdependenciesの中を、適宜増やしていけば良いと思います。
 [clojars](https://clojars.org/)で検索かけると良いです。
-あと、org.clojure/tools.namespaceを入れておくとREPLで少し楽になります。後述します。
+あとorg.clojure/tools.namespaceを入れておくとREPLで少し楽になります。後述します。
 
 ##プログラムを編集する。
 src/[projectName]/core.cljを雛形にしてください。
@@ -49,11 +49,11 @@ replを起動します。必ずプロジェクトディレクトリの直下で�
 > lein repl
 ```
 
+エディタでプログラムを編集した内容をREPLに反映させるのは、なかなか面倒な作業だと思います。名前空間をしっかりと理解できていればいいのですが理解していなくても、以下のURLを参考にすれば、少しは楽になるのではないでしょうか。
 
-本格的に理解するには、clojureの名前空間について理解する必要がありますが、まずは以下のURLを参考にしてください。
 [Leiningen REPLを再起動せずにリフレッシュする](http://qiita.com/arakaji/items/db0b97c873d477151796)
 
 ## テストコード
-まずは [Clojureでテストを書く (with TDD)](http://naokirin.hatenablog.com/entry/20111214/1323542003) を手で実際に書いてみて理解するのがいいです。
+まずは [Clojureでテストを書く (with TDD)](http://naokirin.hatenablog.com/entry/20111214/1323542003) を手で実際に書いてみて理解するのが良いと思います。
 
-test/[projectName]/core_test.cljを雛形にしてください。
+test/[projectName]/core_test.cljを雛形にして、まずは書いてみてください。
