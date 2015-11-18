@@ -1,13 +1,13 @@
 # ESM 関数型勉強会課題提出用リポジトリ
 
-## Projectの作成の仕方
+## プロジェクトを作成する。
 以下のように、コマンドを打ってプロジェクトを作ります。
 ```
 > lein new [projectname]
 ```
 
 
-## Projectの設定
+## プロジェクトを設定する。
 まずは、カレントディレクトリをプロジェクトディレクトリ直下に移動します。
 ```
 > cd [projectname]
@@ -53,7 +53,7 @@ replを起動します。必ずプロジェクトディレクトリの直下で�
 
 [Leiningen REPLを再起動せずにリフレッシュする](http://qiita.com/arakaji/items/db0b97c873d477151796)
 
-## テストコード
+## テストコードを書く。
 まずは [Clojureでテストを書く (with TDD)](http://naokirin.hatenablog.com/entry/20111214/1323542003) を手で実際に書いてみて理解するのが良いと思います。
 
-test/[projectName]/core_test.cljを雛形にして、まずは書いてみてください。
+test/[projectName]/core_test.cljを雛形にして、まずは書いて実行してみてください。
