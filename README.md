@@ -54,6 +54,6 @@ replを起動します。必ずプロジェクトディレクトリの直下で�
 [Leiningen REPLを再起動せずにリフレッシュする](http://qiita.com/arakaji/items/db0b97c873d477151796)
 
 ## テストコード
-まずは(http://naokirin.hatenablog.com/entry/20111214/1323542003)[http://naokirin.hatenablog.com/entry/20111214/1323542003]を手で実際に書いてみて理解するのがいいです。
+まずは (Clojureでテストを書く (with TDD))[http://naokirin.hatenablog.com/entry/20111214/1323542003] を手で実際に書いてみて理解するのがいいです。
 
-test/[projectName]/core.cljを雛形にしてください。
+test/[projectName]/core_test.cljを雛形にしてください。
