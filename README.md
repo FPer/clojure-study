@@ -3,19 +3,19 @@
 ## プロジェクトを作成する。
 以下のように、コマンドを打ってプロジェクトを作ります。
 ```
-> lein new [projectname]
+> lein new [project名]
 ```
 
 
 ## プロジェクトを設定する。
 まずは、カレントディレクトリをプロジェクトディレクトリ直下に移動します。
 ```
-> cd [projectname]
+> cd [project名]
 ```
 project.cljを変数してプロジェクトを設定します。プロジェクトディレクトリ直下にあります。
 
 ```clojure
-(defproject nakana "0.1.0-SNAPSHOT"
+(defproject [project名] "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
