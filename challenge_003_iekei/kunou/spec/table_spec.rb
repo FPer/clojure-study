@@ -24,16 +24,16 @@ describe Table do
     end
   end
 
-  describe 'not_empty_first' do
+  describe 'empty_size' do
     let(:table) { Table.new([0, 1, 1, 1, 1, 1, 0, 0]) }
 
-    it { expect(table.not_empty_first).to eq 1 }
+    it { expect(table.empty_size).to eq 1 }
   end
 
-  describe 'not_empty_last' do
+  describe 'empty_size last' do
     let(:table) { Table.new([0, 1, 1, 1, 1, 1, 0, 0]) }
 
-    it { expect(table.not_empty_last).to eq 5 }
+    it { expect(table.empty_size(:reverse_each)).to eq 2 }
   end
 
   describe 'attache' do

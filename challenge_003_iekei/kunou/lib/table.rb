@@ -10,26 +10,31 @@ class Table
   end
 
   def empty?(num)
-    if /0{#{num}}/ === @seats.join
+    if @seats.join.include?(EMPTY.to_s * num)
       true
     else
-      empty_size = not_empty_first + not_empty_last
+      first_empty_size = empty_size
+      last_empty_size = empty_size(:reverse_each)
+
+      return false if !first_empty_size || !last_empty_size
+
+      empty_size = first_empty_size + last_empty_size
 
       empty_size >= num
     end
   end
 
   def attache(num)
-    if /0{#{num}}/ === @seats.join
-      index = @seats.index(0)
+    if @seats.join.include?(EMPTY.to_s * num)
+      index = @seats.join.index(EMPTY.to_s * num)
       num.times do |i|
         @seats[index + i] = WAIT
       end
     else
-      pre_empty_size = not_empty_last
+      pre_empty_size = empty_size(:reverse_each)
       num.times do |i|
         if i < pre_empty_size
-          @seats[(@seats.size - not_empty_last)] = WAIT
+          @seats[(@seats.size - empty_size(:reverse_each))] = WAIT
         end
       end
 
@@ -64,19 +69,13 @@ class Table
     tmp.join
   end
 
-  def not_empty_first
-    @seats.each_with_index do |element, index|
+  def empty_size(method = :each)
+    @seats.send(method).with_index do |element, index|
       if element != EMPTY
         return index
       end
     end
-  end
 
-  def not_empty_last
-    @seats.reverse_each.with_index do |element, index|
-      if element !=  EMPTY
-       return index
-      end
-    end
+    return nil
   end
 end
