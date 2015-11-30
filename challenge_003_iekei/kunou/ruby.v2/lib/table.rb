@@ -1,5 +1,4 @@
 class Table
-
   EMPTY = 0
   WAIT = 1
   EATING = 2
@@ -14,8 +13,7 @@ class Table
   end
 
   def attache(num)
-    seats = logical_seats
-    index = seats.join.index(EMPTY.to_s * num)
+    index = logical_seats.join.index(EMPTY.to_s * num)
     num.times do |i|
       index = index - @seats.size if i + index >= @seats.size
       @seats[index + i] = WAIT
@@ -40,11 +38,7 @@ class Table
   end
 
   def status
-    tmp = []
-    @seats.each do |seat|
-      tmp << (seat == EMPTY ? 0 : 1)
-    end
-    tmp.join
+    @seats.map {|seat| seat == EMPTY ? 0 : 1 }.join
   end
 
   def logical_seats
