@@ -4,6 +4,8 @@ class Table
   EATING = 2
   BREAK = 3
 
+  NOT_EMPTY = 1
+
   def initialize(seats)
     @seats = seats
   end
@@ -21,15 +23,8 @@ class Table
   end
 
   def step
-    @seats.map! do |seat|
-      case seat
-      when EMPTY then
-        EMPTY
-      when BREAK then
-        EMPTY
-      else
-        seat + 1
-      end
+    @seats = @seats.map(&:succ).map do |seat|
+      [EATING, BREAK].include?(seat) ? seat : EMPTY
     end
   end
 
@@ -38,7 +33,7 @@ class Table
   end
 
   def status
-    @seats.map {|seat| seat == EMPTY ? 0 : 1 }.join
+    @seats.map {|seat| seat == EMPTY ? EMPTY : NOT_EMPTY }.join
   end
 
   def logical_seats
