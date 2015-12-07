@@ -21,12 +21,7 @@ class Iekei
 
   def enqueue(table, num)
     table = step(table)
-    if empty?(table, num)
-      table = attache(table, num)
-    else
-      table = enqueue(table, num)
-    end
-    table
+    empty?(table, num) ? attache(table, num) : enqueue(table, num)
   end
 
   def empty?(table, num)
@@ -35,12 +30,8 @@ class Iekei
 
   def attache(table, num)
     index = logical_table(table).join.index(EMPTY.to_s * num)
-    attached = table.dup
-    num.times do |i|
-      index = index - table.size if i + index >= table.size
-      attached[index + i] = WAIT
-    end
-    attached
+    target_indexes = num.times.map {|i| (index + i) % TABLE_SIZE }
+    table.map.with_index {|seat, i| target_indexes.include?(i) ? WAIT : seat }
   end
 
   def step(table)
