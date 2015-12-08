@@ -32,13 +32,18 @@
   [table]
   (map #(if (= 1 (second %1)) 1 (first %1)) (apply map vector (split-at (/ (count table) 2) table))))
 
-(defn enqueue [table num] (#(if (has_empty %1 %2) (attache (logical_attache %1 %2)) (enqueue %1 %2)) (step table) num))
+(defn enqueue
+  [table num]
+  (#(if (has_empty %1 %2) (attache (logical_attache %1 %2)) (enqueue %1 %2)) (step table) num))
 
-(defn status [table] (join (map #(if (= %1 0) %1 1) table)))
+(defn status
+  [table]
+  (join (map #(if (= %1 0) %1 1) table)))
 
 (defn comming
   [customers]
-  ((fn handle [customers table]
-      (if (> (count customers) 0) (handle (rest customers) (enqueue table (first customers))) (status table)))
+  ((fn handle
+     [customers table]
+    (if (> (count customers) 0) (handle (rest customers) (enqueue table (first customers))) (status table)))
     (map #(Integer/parseInt %1) (split customers #""))
     (repeat 8 0)))
