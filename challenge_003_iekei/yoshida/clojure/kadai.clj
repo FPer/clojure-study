@@ -1,21 +1,19 @@
 (use '[clojure.string :only (join)])
 
-(defn next_seat_state [seat]
-  (if (= seat 3) 0
-    (if (> seat 0) (inc seat) seat)
+(defn next_seats_state [seats]
+  (for [seat seats]
+    (if (= seat 3) 0
+      (if (> seat 0) (inc seat) seat)
+    )
   )
 )
 
-(defn next_seats_state [seats]
-  (for [seat seats] (next_seat_state seat))
-)
-
-(defn get_seat_state [seat]
-  (if (= seat 0) 0 1)
-)
-
 (defn get_seats_state [seats]
-  (join (for [seat seats] (get_seat_state seat)))
+  (join 
+    (for [seat seats]
+      (if (= seat 0) 0 1)
+    )
+  )
 )
 
 (defn contains_index? [empty_indexs index]
@@ -33,10 +31,6 @@
   )
 )
 
-(defn create_round_table [seats]
-  (concat seats seats)
-)
-
 (defn get_empty_seat_indexs_main [customer_num empty_seat_indexs round_table index]
   (if (= index (count round_table)) '()
     (if (= customer_num (count empty_seat_indexs)) empty_seat_indexs 
@@ -51,7 +45,7 @@
 )
 
 (defn get_empty_seat_indexs [customer_num seats]
-  (get_empty_seat_indexs_main customer_num [] (create_round_table seats) 0)
+  (get_empty_seat_indexs_main customer_num [] (concat seats seats) 0)
 )
 
 (defn visit_main [customer_num seats]
