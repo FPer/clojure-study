@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>challenge_003</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+</head>
+<body>
+<pre></pre>
+<div id="content"></div>
+<script>
+var _seat;
+
+function test(input, answer) {
+  _seat = _.repeat(0, 8);
+  add(input);
+  resultLog(input, answer);
+//  return answer;
+}
+
+function add(input) {
+  _.forEach(input.split(''), (group) => {
+    while(true) {
+      nextState();
+      if (sit(group)) break;
+    }
+  });
+}
+
+function sit(group) {
+  var longSeat = _seat.join('') + _seat.join('');
+  var sitLongSeat = longSeat.replace(_.repeat(0, +group), _.repeat(1, +group));
+  if (longSeat != sitLongSeat) {
+    _seat = _.map(_(sitLongSeat).chunk(8).first(), (num, index) => {
+      return (num == 1 ||  _(sitLongSeat).chunk(8).last()[index] == 1)? 1: num;
+    });
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function nextState() {
+  _seat = _.map(_seat, (str) => {
+    var num = _.parseInt(str);
+    switch (num) {
+      case 1:
+      case 2:
+        return num + 1;
+      default:
+        return 0;
+    }
+  });
+}
+
+function resultLog(input, answer) {
+  var sit = _.map(_seat, (str) => {
+    return (str != 0)? 1: 0;
+  });
+  var result = (sit.join('') == answer)? 'OK': 'NG';
+  $('pre').append('<div>' + _.padRight(input, 10) + ":" + sit.join('') + " = " + result + '</div>');
+  return this;
+}
+
+test("3316", "11111110");
+test("3342153", "11111111");
+test("8", "11111111");
+test("232624", "11110110");
+test("1", "10000000");
+test("224673432", "11111000");
+test("123464334", "11111110");
+test("44372332", "11111111");
+test("2344", "11111111");
+test("6448476233", "11111100");
+test("4345174644", "11111111");
+test("77743", "11111110");
+test("2136524281", "10000000");
+test("344373", "11100000");
+test("434226", "11111111");
+test("7433223", "11111110");
+test("2246534", "11110111");
+test("634", "11111110");
+test("2222", "11111100");
+test("2442343238", "11111111");
+test("7243344", "11111111");
+test("26147234", "10111111");
+test("34424", "10011111");
+test("6334", "11011111");
+test("3828342", "11011110");
+test("4431", "11110000");
+test("2843212125", "11111111");
+test("333336482", "11000000");
+test("374", "11110000");
+test("4382333", "11100111");
+</script>
+</body>
+</html>
