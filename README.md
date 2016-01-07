@@ -57,3 +57,5 @@ replを起動します。必ずプロジェクトディレクトリの直下で�
 まずは [Clojureでテストを書く (with TDD)](http://naokirin.hatenablog.com/entry/20111214/1323542003) を手で実際に書いてみて理解するのが良いと思います。
 
 test/[project名]/core_test.cljを雛形にして、まずは書いて実行してみてください。
+
+# 
