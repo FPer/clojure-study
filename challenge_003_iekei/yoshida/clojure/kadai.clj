@@ -1,76 +1,36 @@
 (use '[clojure.string :only (join)])
 
 (defn next_seats_state [seats]
-  (for [seat seats]
-    (if (= seat 3) 0
-      (if (> seat 0) (inc seat) seat)
-    )
-  )
+  (map #(if (= %1 3) 0 (if (> %1 0) (inc %1) %1)) seats)
 )
 
 (defn get_seats_state [seats]
-  (join 
-    (for [seat seats]
-      (if (= seat 0) 0 1)
-    )
-  )
-)
-
-(defn contains_index? [empty_indexs index]
-  (if (empty? empty_indexs) false
-    (if (= (first empty_indexs) index)
-      true
-      (contains_index? (rest empty_indexs) index)
-    )
-  )
+  (join (map #(if (zero? %1) 0 1) seats))
 )
 
 (defn sit_down [empty_indexs seats]
-  (for [i (range 0 (count seats))]
-    (if (contains_index? empty_indexs i) 1 (nth seats i))
-  )
+  (reduce #(assoc %1 %2 1) (vec seats) (vec empty_indexs))
 )
 
-(defn get_empty_seat_indexs_main [customer_num empty_seat_indexs round_table index]
-  (if (= index (count round_table)) '()
-    (if (= customer_num (count empty_seat_indexs)) empty_seat_indexs 
-      (get_empty_seat_indexs_main 
-        customer_num 
-        (if (= (nth round_table index) 0) (cons (mod index 8) empty_seat_indexs) [])
-        round_table
-        (inc index)
-      )
-    )
+(defn get_empty_seat_indexs_main [customer_num round_table empty_seat_indexs index]
+  (if (= customer_num (count empty_seat_indexs)) empty_seat_indexs
+    (if (zero? (nth round_table index)) (cons (mod index 8) empty_seat_indexs) [])
   )
 )
 
 (defn get_empty_seat_indexs [customer_num seats]
-  (get_empty_seat_indexs_main customer_num [] (concat seats seats) 0)
+  (reduce #(get_empty_seat_indexs_main customer_num (concat seats seats) %1 %2) [] (range 0 16))
 )
 
-(defn visit_main [customer_num seats]
-
-  (if (empty? (get_empty_seat_indexs customer_num (next_seats_state seats)))
-    (visit_main customer_num (next_seats_state seats))
+(defn visit [seats customer_num]
+  (if (not= ( count (get_empty_seat_indexs customer_num (next_seats_state seats))) customer_num)
+    (visit (next_seats_state seats) customer_num)
     (sit_down (get_empty_seat_indexs customer_num (next_seats_state seats)) (next_seats_state seats))
-  )
-
-)
-
-(defn visit [customer_nums seats]
-  (if (empty? customer_nums) seats
-    (visit (rest customer_nums) (visit_main (first customer_nums) seats))
-  )
-)
-
-(defn convert_int [str]
-  (for [s (seq str)]
-    (Character/getNumericValue s)
   )
 )
 
 (defn main [customer_nums]
-  (get_seats_state (visit (convert_int customer_nums) '(0 0 0 0 0 0 0 0)))
+  (get_seats_state (reduce #(visit %1 (Character/getNumericValue %2)) [0 0 0 0 0 0 0 0] (vec customer_nums)))
 )
 
 (defn assert_equals [expect result]
