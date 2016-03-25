@@ -23,10 +23,11 @@ public class SpaceTest {
 	public void test() {
 		// fail("Not yet implemented");
 
-		test1(Arrays.asList(3));
-		test1(Arrays.asList(3, 4));
-		test1(Arrays.asList(3, 4, 2));
-		test1(Arrays.asList(3, 2, 4));
+//		test1(Arrays.asList(3));
+//		test1(Arrays.asList(3, 4));
+//		test1(Arrays.asList(3, 4, 2));
+//		test1(Arrays.asList(3, 2, 4));
+		test1(Arrays.asList(2, 3, 2, 6, 2, 4));
 	}
 
 	private void test1(List<Integer> iList) {
