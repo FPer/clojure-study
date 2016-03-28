@@ -10,7 +10,7 @@ var inData = [
   {"hosp" : "c" , "data": 3}
 ]
 
-var outData = _.map(_.uniqBy(inData, 'hosp'), (val) => {
+var outData = _.map(_.uniqBy(_.cloneDeep(inData), 'hosp'), val => {
   val.data = _.map(_.filter(inData, {'hosp':val.hosp}), 'data');
   return val;
 });
