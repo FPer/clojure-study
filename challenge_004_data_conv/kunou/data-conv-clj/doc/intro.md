@@ -1,3 +1,3 @@
-# Introduction to data_conv_clj
+# Introduction to data-conv-clj
 
 TODO: write [great documentation](http://jacobian.org/writing/what-to-write/)
