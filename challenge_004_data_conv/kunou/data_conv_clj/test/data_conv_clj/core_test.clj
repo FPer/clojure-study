@@ -22,8 +22,8 @@
 
 (deftest to-map_test
   (testing "to map"
-    (is (= (to-map {} {"hosp" "a", "data" 1})        {"a" [1]}))
-    (is (= (to-map {"a" [1]} {"hosp" "b", "data" 1}) {"a" [1], "b" [1]}))
+    (is (= (to-map {} {"hosp" "a", "data" 1})                 {"a" [1]}))
+    (is (= (to-map {"a" [1]} {"hosp" "b", "data" 1})          {"a" [1], "b" [1]}))
     (is (= (to-map {"a" [1], "b" [1]} {"hosp" "a", "data" 2}) {"a" [1 2], "b" [1]}))
   ))
 
