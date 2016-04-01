@@ -11,10 +11,11 @@ var dataAry = [
 ];
 
 function convert(data) {
-  var converted = _.reduce(_.groupBy(data, data['hosp']), function(result, value, key) {
+  var converted = _.reduce(_.groupBy(data, 'hosp'), function(result, value, key) {
     result.push({'hosp': key, 'data': _.map(value, 'data')});
     return result;
   }, []);
+  console.log(converted);
   return converted;
 }
 
