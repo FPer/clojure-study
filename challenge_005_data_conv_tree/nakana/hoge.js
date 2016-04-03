@@ -81,16 +81,27 @@ var reduceTree = function(t, f, a) {
 
 var foldTree = reduceTree; // alias
 
-mapTree(data, function(n) { console.log(n); });
-println('------------');
-println(constf(12, 19, 20));
-println('------------');
-//println(JSON.stringify(mapTree(data, function(t) { return constf(1, t); }), null, '  '));
-//println(JSON.stringify(mapTree(data, _.curry(constf, 2)(1)), null, '  '));
-//printlnJSON(mapTree(data, _.curry(constf, 2)(1)), 2);
-//printlnJSON(mapTree(data, _.curry(constf, 2)(1)));
+// mapTree(data, function(n) { console.log(n); });
+// println('------------');
+// println(constf(12, 19, 20));
+// println('------------');
+// //println(JSON.stringify(mapTree(data, function(t) { return constf(1, t); }), null, '  '));
+// //println(JSON.stringify(mapTree(data, _.curry(constf, 2)(1)), null, '  '));
+// //printlnJSON(mapTree(data, _.curry(constf, 2)(1)), 2);
+// //printlnJSON(mapTree(data, _.curry(constf, 2)(1)));
+// var tmp = mapTree(data, _.curry(constf, 2)(1));
+// printlnJSON(tmp);
+// println(foldTree(tmp, function(t, a) { return a + t.node; }, 0));
 
 
-var tmp = mapTree(data, _.curry(constf, 2)(1));
-printlnJSON(tmp);
-println(foldTree(tmp, function(t, a) { return a + t.node; }, 0));
+
+//var foldRose = reduceRose; // alias
+var reduceRose = function(f, t){
+  return f(t.node, _.map(t.rose, function(e) { return _.curry(reduceRose)(f)(e); }));
+}
+
+var sum = _.partial(_.reduce, _, function(e, a){ return e + a; }, 0);
+var result = reduceRose(function(n, ns) { return 1 + sum(ns); }, data);
+
+println(result);
+
