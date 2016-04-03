@@ -100,7 +100,9 @@ var foldTree = reduceTree; // alias
 //  return f(t.node, _.map(t.rose, function(e) { return _.curry(reduceRose)(f)(e); }));
 //}
 var reduceRose = function(t, f){
-  return f(t.node, _.map(t.rose, function(e) { return _.curryRight(reduceRose)(f)(e); }));
+//  return f(t.node, _.map(t.rose, function(e) { return _.curryRight(reduceRose)(f)(e); })); //OK
+//  return f(t.node, _.map(t.rose, _.curryRight(reduceRose, 2)(f))); // NG
+  return f(t.node, _.map(t.rose, _.partial(reduceRose, _, f)));
 }
 
 var sum = _.partial(_.reduce, _, function(e, a){ return e + a; }, 0);
