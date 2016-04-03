@@ -99,14 +99,53 @@ var foldTree = reduceTree; // alias
 //var reduceRose = function(f, t){
 //  return f(t.node, _.map(t.rose, function(e) { return _.curry(reduceRose)(f)(e); }));
 //}
+
 var reduceRose = function(t, f){
-  return f(t.node, _.map(t.rose, _.curry(reduceRose)(_, f)));
+  return f(t.node, _.map(t.rose, _.curry(reduceRose)(_, f))); //OK
+//  return f(t.node, _.map(t.rose, _.curryRight(reduceRose)(f))); // NG why?
 //  return f(t.node, _.map(t.rose, _.partial(reduceRose, _, f))); //OK
+}
+
+var reduceRose2 = function(f, t){
+  return f(t.node, _.map(t.rose, _.curry(reduceRose2)(f)));
+}
+
+
+var node = function(n, t) {
+  return {node: n, rose: t};
+}
+
+var g = function(f, x, xs) {
+  return node(f(x), xs);
+}
+var mapRose2 = function(f, t){
+//  return reduceRose2(_.flowRight(node, f), t);
+//  return reduceRose2(function(){return node(f(t.node), t.rose);}, t);
+  return reduceRose2(_.flowRight(_.curry(node), _.curry(f)), t);
 }
 
 
 var sum = _.partial(_.reduce, _, function(e, a){ return e + a; }, 0);
 var result = reduceRose(data, function(n, ns) { return 1 + sum(ns); });
+var result2 = reduceRose2(function(n, ns) { return 1 + sum(ns); }, data);
+//println(result);
+//println(result2);
+printlnJSON(mapRose2(function(n) { return 1; }, data));
 
-println(result);
+//println((5)([3,4]));
+var tmp = _.curry(node);
+var tmp2 = tmp(3);
 
+var f = function(n){ return n };
+var add = function(a, b){ return a + b; };
+var add1 = _.curry(add)(1);
+
+println(f(66));
+println(add(66, 33));
+println(add1(66));
+println(_.flowRight(f, add)(66, 33));
+println(_.flowRight(add1, add)(66, 33));
+println(_.curry(add)(f(66))(33));
+println(_.map([1, 2, 3], add1));
+println(_.flowRight(add, f)(66, 33));
+//println(_.flowRight(_.curry(node), f)(22, [2,3]));
