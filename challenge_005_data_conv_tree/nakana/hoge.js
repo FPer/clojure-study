@@ -96,12 +96,15 @@ var foldTree = reduceTree; // alias
 
 
 //var foldRose = reduceRose; // alias
-var reduceRose = function(f, t){
-  return f(t.node, _.map(t.rose, function(e) { return _.curry(reduceRose)(f)(e); }));
+//var reduceRose = function(f, t){
+//  return f(t.node, _.map(t.rose, function(e) { return _.curry(reduceRose)(f)(e); }));
+//}
+var reduceRose = function(t, f){
+  return f(t.node, _.map(t.rose, function(e) { return _.curryRight(reduceRose)(f)(e); }));
 }
 
 var sum = _.partial(_.reduce, _, function(e, a){ return e + a; }, 0);
-var result = reduceRose(function(n, ns) { return 1 + sum(ns); }, data);
+var result = reduceRose(data, function(n, ns) { return 1 + sum(ns); });
 
 println(result);
 
