@@ -58,4 +58,5 @@
     (->>
       (map line2tree input)
       (reduce merge-tree {})
-      (convert)))
+      (convert)
+      (vec)))

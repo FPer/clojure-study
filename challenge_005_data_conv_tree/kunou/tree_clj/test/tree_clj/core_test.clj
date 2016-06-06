@@ -51,6 +51,6 @@
       {:id 1, :name "a", :order 1, :date "01/01", :item "aaa", :count 1, :amount 100}
       {:id 1, :name "a", :order 1, :date "01/01", :item "bbb", :count 2, :amount 200}
     ]) 
-      {:ctKey 1, :ctName "a", :ctValues [{:groupKey 1, :date "01/01", :groupValues [{:itemKey "aaa", :amount 100, :count 1}, {:itemKey "bbb", :amount 200, :count 2}]}]}))
+      [{:ctKey 1, :ctName "a", :ctValues [{:groupKey 1, :date "01/01", :groupValues [{:itemKey "aaa", :amount 100, :count 1}, {:itemKey "bbb", :amount 200, :count 2}]}]}]))
   ))
 
