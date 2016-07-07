@@ -2,7 +2,7 @@
 (def gene-num 10)
 (def value-range 3)
 (def dice-num 2)
-(def answer [2 2 1 3 1 3 1 2 3 3])
+(def answer [1 1 1 1 1 1 1 1 1 1])
 
 (defn mark [gene]
   (assoc gene :SCORE )
